@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SGS Admin Panel</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+    <div id="adminLogin" class="login-container">
+        <h1>SGS Admin Portal</h1>
+        <form id="adminLoginForm">
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" id="username" required>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="password" required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+        <div class="back-link">
+            <a href="index.html">← Back to Store</a>
+        </div>
+    </div>
+
+    <div id="adminPanel" style="display: none;">
+        <header>
+            <nav>
+                <a href="#" onclick="showSection('manageProducts')">Manage Products</a>
+                <a href="#" onclick="showSection('viewOrders')">View Orders</a>
+                <a href="#" onclick="showSection('viewFeedbacks')">View Feedback</a>
+                <a href="#" onclick="logout()">Logout</a>
+            </nav>
+        </header>
+
+        <!-- Add this section in the container -->
+        <div class="container">
+            <div id="manageProducts" class="section">
+                <h2>Product Management</h2>
+                <form id="addProductForm">
+                    <input type="text" placeholder="Product Name" required>
+                    <textarea placeholder="Product Description"></textarea>
+                    <input type="number" placeholder="Price" step="0.01" required>
+                    <input type="url" placeholder="Image URL" required>
+                    <button type="submit">Add Product</button>
+                </form>
+                <div class="products-grid" id="adminProductsGrid"></div>
+            </div>
+            <div id="viewFeedbacks" class="section" style="display: none;">
+                <h2>Customer Feedback</h2>
+                <div id="adminFeedbacksList" class="feedback-list"></div>
+            </div>
+            <!-- Add to the viewOrders section -->
+            <div id="viewOrders" class="section" style="display: none;">
+                <h2>Active Orders</h2>
+                <div id="adminOrdersList" class="orders-list"></div>
+
+                <h2 class="completed-header">Completed Orders</h2>
+                <div id="completedOrdersList" class="orders-list"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>

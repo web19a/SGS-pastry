@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGS Pastry Shop</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Add this right after the opening <body> tag -->
+    <div id="welcomeSection" class="welcome-section active">
+        <div class="welcome-content">
+            <h1>Welcome to SGS Pastry 🧁</h1>
+            <p>
+                Discover our artisan French pastries and sweet delights
+            </p>
+            <button onclick="hideWelcome()">Explore Menu</button>
+        </div>
+    </div>
+    <header>
+        <div class="header-content">
+            <h1 class="logo">SGS Pastry 🧁</h1>
+            <nav>
+                <a href="#" onclick="showSection('products')" class="nav-link">Products</a>
+                <a href="#" onclick="showSection('feedbacks')" class="nav-link">Feedback</a>
+                <a href="#" onclick="showSection('about')" class="nav-link">About</a>
+                <a href="admin.html" class="nav-link admin-link">Admin Login</a>
+            </nav>
+        </div>
+    </header>
+    <div class="container">
+        <div id="products" class="section">
+            <h2>Our Delicious Pastries</h2>
+            <div class="products-grid" id="productsGrid"></div>
+        </div>
+
+        <div id="orders" class="section" style="display: none;">
+            <h2>Your Orders</h2>
+            <div id="ordersList"></div>
+        </div>
+
+        <div id="feedbacks" class="section">
+            <h2>Customer Feedback</h2>
+            <form id="feedbackForm">
+                <textarea placeholder="Share your experience..." rows="4"></textarea>
+                <button type="submit">Submit Feedback</button>
+            </form>
+            <div id="feedbacksList" class="feedback-list"></div>
+        </div>
+    </div>
+    <!-- Add these at the end of body -->
+    <div class="modal-overlay" id="orderModal">
+        <div class="modal-content">
+            <h3>Complete Your Order</h3>
+            <form class="modal-form" id="orderForm">
+                <input type="number" placeholder="Quantity" min="1" value="1" required>
+                <input type="text" placeholder="Full Name" required>
+                <input type="email" placeholder="Email" required>
+                <input type="tel" placeholder="Card Number" pattern="[0-9]{16}" required>
+                <button type="submit">Place Order</button>
+                <button type="button" onclick="closeModal()">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="about" class="section">
+        <div id="aboutContent"></div>
+    </div>
+
+    <div class="notification" id="notification"></div>
+
+    <script src="js/scripts.js"></script>
+</body>
+</html>

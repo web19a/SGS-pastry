@@ -1,0 +1,390 @@
+:root {
+    --primary: #ff7f50;
+    --secondary: #fff4e9;
+    --text: #333;
+    --shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    color: var(--text);
+    line-height: 1.6;
+    background: var(--secondary);
+}
+
+header {
+    background: white;
+    padding: 1rem 2rem;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 1.8rem;
+    color: var(--primary);
+    margin: 0;
+}
+
+nav {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--text);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    background: var(--secondary);
+    color: var(--primary);
+}
+
+.nav-link.active {
+    background: var(--primary);
+    color: white !important;
+}
+
+.admin-link {
+    background: var(--primary);
+    color: white !important;
+    margin-left: 1rem;
+}
+
+.admin-link:hover {
+    opacity: 0.9;
+}
+
+.container {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.section {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.section.active {
+    display: block;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.product-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+button {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: opacity 0.3s ease;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+.feedback-list {
+    margin-top: 2rem;
+    display: grid;
+    gap: 1.5rem;
+}
+
+#feedbackForm {
+    display: grid;
+    gap: 1rem;
+    max-width: 600px;
+}
+
+#feedbackForm textarea {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    resize: vertical;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Notification Popup */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    background: var(--primary);
+    color: white;
+    box-shadow: var(--shadow);
+    animation: slideIn 0.3s ease, fadeOut 0.3s ease 1.7s;
+    z-index: 1000;
+}
+
+/* Order Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 500px;
+}
+
+.modal-form {
+    display: grid;
+    gap: 1rem;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 2rem;
+    color: #666;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+/* About Section Styles */
+.about-section {
+    padding: 2rem;
+    background: white;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+}
+
+.about-grid {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    margin-top: 2rem;
+}
+
+.about-card {
+    padding: 1.5rem;
+    background: var(--secondary);
+    border-radius: 15px;
+}
+
+.team-members {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.member {
+    text-align: center;
+}
+
+.member img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 0.5rem;
+}
+
+/* Orders Section */
+.orders-list {
+    margin-top: 2rem;
+    display: grid;
+    gap: 1.5rem;
+}
+
+.order-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.order-status {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.order-status.pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.order-status.completed {
+    background: #d4edda;
+    color: #155724;
+}
+
+.order-details {
+    display: grid;
+    gap: 0.5rem;
+    color: #666;
+}
+
+/* Welcome Section */
+.welcome-section {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://images.unsplash.com/photo-1509440159596-0249088772ff') center/cover;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1001;
+    transition: opacity 0.5s ease;
+}
+
+.welcome-section.active {
+    display: flex;
+    animation: fadeIn 1s ease;
+}
+
+.welcome-content {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 3rem;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    max-width: 600px;
+}
+
+.welcome-content h1 {
+    color: var(--primary);
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.welcome-content button {
+    margin-top: 1.5rem;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.order-card.completed {
+    opacity: 0.7;
+    background: #f8f9fa;
+}
+
+.order-card.completed h3 {
+    text-decoration: line-through;
+}
+
+.complete-btn {
+    margin-top: 1rem;
+    background: #28a745 !important;
+    width: 100%;
+}
+
+.complete-btn:hover {
+    background: #218838 !important;
+}
+
+.order-status.completed {
+    background: #28a745;
+    color: white;
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.order-status {
+    background: #fff3cd;
+    color: #856404;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+}
+
+.order-details {
+    display: grid;
+    gap: 0.5rem;
+    color: #666;
+}
