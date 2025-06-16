@@ -264,6 +264,8 @@
                 color: 0xff7e5f00,
                 shininess: 100 
             });
+
+            const photos = ['IMG_20250616_175904_245.jpg', 'IMG_20250616_175906_065.jpg', 'IMG_20250616_175907_726.jpg', 'IMG_20250616_175909_163.jpg'];
             
             // Create 50 small circles randomly distributed
             for (let i = 0; i < 50; i++) {
@@ -282,6 +284,10 @@
                 // Scale to make them sit on the surface
                 circle.position.multiplyScalar(1.05);
                 sphere.add(circle);
+
+                randomIndex = Math.floor(Math.random() * array.length);
+                circle.INNERHTML = `<img src="${photos[randomIndex]}">`
+
             }
         }
         
