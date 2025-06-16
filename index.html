@@ -14,7 +14,7 @@
         
         body {
             overflow: hidden;
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            background: linear-gradient(135deg, #1a2a6c, #2c3e50);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             height: 100vh;
             display: flex;
@@ -24,28 +24,25 @@
         
         .header {
             text-align: center;
-            padding: 25px;
+            padding: 20px;
             background: rgba(0, 0, 0, 0.3);
             z-index: 10;
-            backdrop-filter: blur(5px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         h1 {
-            font-size: 2.8rem;
+            font-size: 2.5rem;
             margin-bottom: 10px;
-            background: linear-gradient(to right, #12c2e9, #c471ed, #f64f59);
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
         
         .subtitle {
             font-size: 1.2rem;
-            opacity: 0.9;
+            opacity: 0.8;
             max-width: 600px;
             margin: 0 auto;
-            color: #e0e0ff;
         }
         
         .container {
@@ -59,7 +56,6 @@
         #scene-container {
             width: 100%;
             height: 100%;
-            position: absolute;
         }
         
         .controls {
@@ -67,15 +63,13 @@
             bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.6);
             padding: 15px 30px;
             border-radius: 50px;
             display: flex;
             gap: 30px;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(5px);
             z-index: 10;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .control-item {
@@ -100,13 +94,11 @@
         .control-item:hover .control-icon {
             background: rgba(255, 255, 255, 0.2);
             transform: scale(1.1);
-            box-shadow: 0 0 15px rgba(100, 200, 255, 0.4);
         }
         
         .control-label {
             font-size: 14px;
             text-align: center;
-            color: #d0d0ff;
         }
         
         .footer {
@@ -115,29 +107,24 @@
             background: rgba(0, 0, 0, 0.3);
             font-size: 14px;
             z-index: 10;
-            color: #a0a0ff;
         }
         
         .instructions {
             position: absolute;
             top: 20px;
             right: 20px;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 20px;
-            border-radius: 15px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 15px;
+            border-radius: 10px;
             max-width: 250px;
             font-size: 14px;
             line-height: 1.6;
             z-index: 10;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
         
         .instructions h3 {
-            margin-bottom: 15px;
-            color: #12c2e9;
-            text-align: center;
+            margin-bottom: 10px;
+            color: #ff7e5f;
         }
         
         .instructions ul {
@@ -145,45 +132,7 @@
         }
         
         .instructions li {
-            margin-bottom: 10px;
-            position: relative;
-        }
-        
-        .instructions li:before {
-            content: "•";
-            color: #f64f59;
-            position: absolute;
-            left: -15px;
-            font-size: 20px;
-        }
-        
-        .status {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 10px 20px;
-            border-radius: 50px;
-            z-index: 10;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .status-indicator {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #4caf50;
-            box-shadow: 0 0 10px #4caf50;
-        }
-        
-        .paused .status-indicator {
-            background: #f44336;
-            box-shadow: 0 0 10px #f44336;
+            margin-bottom: 8px;
         }
         
         @media (max-width: 768px) {
@@ -192,7 +141,7 @@
             }
             
             h1 {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
             
             .subtitle {
@@ -201,8 +150,7 @@
             
             .controls {
                 padding: 10px 20px;
-                gap: 15px;
-                bottom: 20px;
+                gap: 20px;
             }
             
             .control-icon {
@@ -213,11 +161,6 @@
             
             .instructions {
                 display: none;
-            }
-            
-            .status {
-                top: 10px;
-                left: 10px;
             }
         }
     </style>
@@ -239,11 +182,6 @@
                 <li><strong>Tap</strong> anywhere to pause/resume rotation</li>
                 <li><strong>Scroll</strong> to zoom (on desktop)</li>
             </ul>
-        </div>
-        
-        <div class="status">
-            <div class="status-indicator"></div>
-            <span>Rotation: Active</span>
         </div>
         
         <div class="controls">
@@ -287,7 +225,7 @@
             camera.position.z = 5;
             
             // Create renderer
-            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer = new THREE.WebGLRenderer({ antialias: true });
             renderer.setSize(window.innerWidth, window.innerHeight);
             renderer.setPixelRatio(window.devicePixelRatio);
             document.getElementById('scene-container').appendChild(renderer.domElement);
@@ -305,74 +243,46 @@
             animate();
         }
         
-        // Create the main sphere with 2D circles on its surface
+        // Create the main sphere with small circles on its surface
         function createSphere() {
-            // Main sphere - transparent
+            // Main sphere
             const sphereGeometry = new THREE.SphereGeometry(1, 64, 64);
             const sphereMaterial = new THREE.MeshPhongMaterial({
                 color: 0x3498db,
                 transparent: true,
-                opacity: 0.25,
-                wireframe: true,
-                wireframeLinewidth: 1
+                opacity: 0.9,
+                shininess: 100,
+                wireframe: false
             });
             
             sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
             scene.add(sphere);
             
-            // Create 2D circles using sprites
-            const circleTexture = createCircleTexture(0xff7e5f, 0.7);
-            const spriteMaterial = new THREE.SpriteMaterial({ 
-                map: circleTexture,
-                transparent: true
+            // Add small circles on the sphere surface
+            const circleGeometry = new THREE.SphereGeometry(0.05, 16, 16);
+            const circleMaterial = new THREE.MeshPhongMaterial({ 
+                color: 0xff7e5f,
+                shininess: 100 
             });
             
             // Create 50 small circles randomly distributed
             for (let i = 0; i < 50; i++) {
-                const sprite = new THREE.Sprite(spriteMaterial);
-                sprite.scale.set(0.15, 0.15, 1);
+                const circle = new THREE.Mesh(circleGeometry, circleMaterial);
                 
                 // Position on sphere surface
                 const phi = Math.acos(-1 + (2 * i) / 50);
                 const theta = Math.sqrt(50 * Math.PI) * phi;
                 
-                sprite.position.set(
+                circle.position.set(
                     Math.sin(phi) * Math.cos(theta),
                     Math.sin(phi) * Math.sin(theta),
                     Math.cos(phi)
                 );
                 
-                scene.add(sprite);
+                // Scale to make them sit on the surface
+                circle.position.multiplyScalar(1.05);
+                sphere.add(circle);
             }
-        }
-        
-        // Create circle texture for sprites
-        function createCircleTexture(color, opacity) {
-            const canvas = document.createElement('canvas');
-            canvas.width = 64;
-            canvas.height = 64;
-            
-            const context = canvas.getContext('2d');
-            const centerX = canvas.width / 2;
-            const centerY = canvas.height / 2;
-            const radius = 30;
-            
-            // Draw circle with gradient
-            const gradient = context.createRadialGradient(
-                centerX, centerY, 0,
-                centerX, centerY, radius
-            );
-            gradient.addColorStop(0, `rgba(${parseInt(color.slice(1,3), 16)},${parseInt(color.slice(3,5), 16)},${parseInt(color.slice(5,7), 16)},1)`);
-            gradient.addColorStop(1, `rgba(${parseInt(color.slice(1,3), 16)},${parseInt(color.slice(3,5), 16)},${parseInt(color.slice(5,7), 16)},0)`);
-            
-            context.beginPath();
-            context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
-            context.fillStyle = gradient;
-            context.fill();
-            
-            // Create texture from canvas
-            const texture = new THREE.CanvasTexture(canvas);
-            return texture;
         }
         
         // Add lights to the scene
@@ -382,11 +292,11 @@
             scene.add(ambientLight);
             
             // Directional lights
-            const light1 = new THREE.DirectionalLight(0xff7e5f, 1.2);
+            const light1 = new THREE.DirectionalLight(0xff7e5f, 0.8);
             light1.position.set(5, 5, 5);
             scene.add(light1);
             
-            const light2 = new THREE.DirectionalLight(0x3498db, 1.2);
+            const light2 = new THREE.DirectionalLight(0x3498db, 0.8);
             light2.position.set(-5, -5, -5);
             scene.add(light2);
             
@@ -513,21 +423,6 @@
         // Toggle auto rotation
         function toggleRotation() {
             autoRotate = !autoRotate;
-            const statusElement = document.querySelector('.status');
-            const indicator = document.querySelector('.status-indicator');
-            const text = document.querySelector('.status span');
-            
-            if (autoRotate) {
-                statusElement.classList.remove('paused');
-                text.textContent = 'Rotation: Active';
-                indicator.style.background = '#4caf50';
-                indicator.style.boxShadow = '0 0 10px #4caf50';
-            } else {
-                statusElement.classList.add('paused');
-                text.textContent = 'Rotation: Paused';
-                indicator.style.background = '#f44336';
-                indicator.style.boxShadow = '0 0 10px #f44336';
-            }
         }
         
         // Window resize handler
@@ -543,7 +438,7 @@
             
             if (autoRotate) {
                 sphere.rotation.y += rotationSpeed;
-                sphere.rotation.x += rotationSpeed * 0.3;
+                sphere.rotation.x += rotationSpeed * 0.5;
             }
             
             renderer.render(scene, camera);
