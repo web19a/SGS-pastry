@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive 3D Sphere</title>
+    <title>Interactive 3D Sphere with Images</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
         * {
@@ -214,6 +214,16 @@
         let zoomIntensity = 0.1;
         let initialPinchDistance = null;
         
+        // Image paths
+        const photos = [
+            'IMG_20250616_175904_245.jpg', 
+            'IMG_20250616_175906_065.jpg',
+            'IMG_20250616_175907_726.jpg',
+            'IMG_20250616_175909_163.jpg',
+            'IMG_20250616_181934_297.jpg',
+            'IMG_20250616_181935_757.jpg'
+        ];
+        
         // Initialize the scene
         function init() {
             // Create scene
@@ -243,7 +253,7 @@
             animate();
         }
         
-        // Create the main sphere with small circles on its surface
+        // Create the main sphere with image sprites on its surface
         function createSphere() {
             // Main sphere
             const sphereGeometry = new THREE.SphereGeometry(1, 64, 64);
@@ -258,76 +268,48 @@
             sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
             scene.add(sphere);
             
-            // Add small circles on the sphere surface
-            const circleGeometry = new THREE.SphereGeometry(0.05, 16, 16);
-            const circleMaterial = new THREE.MeshPhongMaterial({ 
-                color: 0xff7e5f,
-                shininess: 100 
+            // Create image sprites on the sphere surface
+            const textureLoader = new THREE.TextureLoader();
+            
+            // Load all images first
+            const loadPromises = photos.map(photo => {
+                return new Promise((resolve) => {
+                    const texture = textureLoader.load(photo, resolve);
+                });
             });
             
-            // Create 50 small circles randomly distributed
-            const photos = ['IMG_20250616_175904_245.jpg', 'IMG_20250616_175906_065.jpg', 'IMG_20250616_175907_726.jpg', 'IMG_20250616_175909_163.jpg', 'IMG_20250616_181934_297.jpg', 'IMG_20250616_181935_757.jpg'];
-            
-            // Create 50 small circles randomly distributed
-            // Create a texture loader
-const textureLoader = new THREE.TextureLoader();
-
-// Replace the circle creation loop with this:
-for (let i = 0; i < 50; i++) {
-
-    const randomIndex = Math.floor(Math.random() * photos.length);
-    // Load your image (replace 'path/to/image.jpg' with your image path)
-    const texture = createCircularImageTexture(photos[randomIndex]);
-    
-    // Create sprite material with the image texture
-    const spriteMaterial = new THREE.SpriteMaterial({ 
-        map: texture,
-        transparent: true,
-        opacity: 0.9
-    });
-    
-    // Create sprite
-    const sprite = new THREE.Sprite(spriteMaterial);
-    sprite.scale.set(0.2, 0.2, 1); // Adjust size as needed
-    
-    // Position on sphere surface (same as before)
-    const phi = Math.acos(-1 + (2 * i) / 50);
-    const theta = Math.sqrt(50 * Math.PI) * phi;
-    
-    sprite.position.set(
-        Math.sin(phi) * Math.cos(theta),
-        Math.sin(phi) * Math.sin(theta),
-        Math.cos(phi)
-    );
-    
-    // Scale to make them sit on the surface
-    sprite.position.multiplyScalar(1.05);
-    scene.add(sprite);
-}
-        }
-
-        function createCircularImageTexture(imagePath) {
-    const canvas = document.createElement('canvas');
-    canvas.width = 256;
-    canvas.height = 256;
-    const ctx = canvas.getContext('2d');
-    
-    // Load image
-    const img = new Image();
-    img.src = imagePath;
-    img.onload = function() {
-        // Draw circular mask
-        ctx.beginPath();
-        ctx.arc(128, 128, 128, 0, Math.PI * 2);
-        ctx.closePath();
-        ctx.clip();
-        
-        // Draw image
-        ctx.drawImage(img, 0, 0, 256, 256);
-    };
-    
-    return new THREE.CanvasTexture(canvas);
-}
+            Promise.all(loadPromises).then(() => {
+                // Once all images are loaded, create sprites
+                for (let i = 0; i < 50; i++) {
+                    const randomIndex = Math.floor(Math.random() * photos.length);
+                    const texture = textureLoader.load(photos[randomIndex]);
+                    
+                    // Create sprite material with the image texture
+                    const spriteMaterial = new THREE.SpriteMaterial({ 
+                        map: texture,
+                        transparent: true,
+                        opacity: 0.9
+                    });
+                    
+                    // Create sprite
+                    const sprite = new THREE.Sprite(spriteMaterial);
+                    sprite.scale.set(0.2, 0.2, 1);
+                    
+                    // Position on sphere surface
+                    const phi = Math.acos(-1 + (2 * i) / 50);
+                    const theta = Math.sqrt(50 * Math.PI) * phi;
+                    
+                    sprite.position.set(
+                        Math.sin(phi) * Math.cos(theta),
+                        Math.sin(phi) * Math.sin(theta),
+                        Math.cos(phi)
+                    );
+                    
+                    // Scale to make them sit on the surface
+                    sprite.position.multiplyScalar(1.05);
+                    scene.add(sprite);
+                }
+            });
         }
         
         // Add lights to the scene
