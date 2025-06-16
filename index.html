@@ -265,31 +265,68 @@
                 shininess: 100 
             });
 
-            const photos = ['IMG_20250616_175904_245.jpg', 'IMG_20250616_175906_065.jpg', 'IMG_20250616_175907_726.jpg', 'IMG_20250616_175909_163.jpg'];
+            const photos = ['IMG_20250616_175904_245.jpg', 'IMG_20250616_175906_065.jpg', 'IMG_20250616_175907_726.jpg', 'IMG_20250616_175909_163.jpg', 'IMG_20250616_181934_297.jpg', 'IMG_20250616_181935_757.jpg'];
             
             // Create 50 small circles randomly distributed
-            for (let i = 0; i < 50; i++) {
-                const circle = new THREE.Mesh(circleGeometry, circleMaterial);
-                
-                // Position on sphere surface
-                const phi = Math.acos(-1 + (2 * i) / 50);
-                const theta = Math.sqrt(50 * Math.PI) * phi;
-                
-                circle.position.set(
-                    Math.sin(phi) * Math.cos(theta),
-                    Math.sin(phi) * Math.sin(theta),
-                    Math.cos(phi)
-                );
-                
-                // Scale to make them sit on the surface
-                circle.position.multiplyScalar(1.05);
-                sphere.add(circle);
+            // Create a texture loader
+const textureLoader = new THREE.TextureLoader();
 
-                randomIndex = Math.floor(Math.random() * photos.length);
-                circle.INNERHTML = `<img src="${photos[randomIndex]}">`
+// Replace the circle creation loop with this:
+for (let i = 0; i < 50; i++) {
 
-            }
+    const randomIndex = Math.floor(Math.random() * photos.length);
+    // Load your image (replace 'path/to/image.jpg' with your image path)
+    const texture = createCircularImageTexture(photos[randomIndex]);
+    
+    // Create sprite material with the image texture
+    const spriteMaterial = new THREE.SpriteMaterial({ 
+        map: texture,
+        transparent: true,
+        opacity: 0.9
+    });
+    
+    // Create sprite
+    const sprite = new THREE.Sprite(spriteMaterial);
+    sprite.scale.set(0.2, 0.2, 1); // Adjust size as needed
+    
+    // Position on sphere surface (same as before)
+    const phi = Math.acos(-1 + (2 * i) / 50);
+    const theta = Math.sqrt(50 * Math.PI) * phi;
+    
+    sprite.position.set(
+        Math.sin(phi) * Math.cos(theta),
+        Math.sin(phi) * Math.sin(theta),
+        Math.cos(phi)
+    );
+    
+    // Scale to make them sit on the surface
+    sprite.position.multiplyScalar(1.05);
+    scene.add(sprite);
+}
         }
+
+        function createCircularImageTexture(imagePath) {
+    const canvas = document.createElement('canvas');
+    canvas.width = 256;
+    canvas.height = 256;
+    const ctx = canvas.getContext('2d');
+    
+    // Load image
+    const img = new Image();
+    img.src = imagePath;
+    img.onload = function() {
+        // Draw circular mask
+        ctx.beginPath();
+        ctx.arc(128, 128, 128, 0, Math.PI * 2);
+        ctx.closePath();
+        ctx.clip();
+        
+        // Draw image
+        ctx.drawImage(img, 0, 0, 256, 256);
+    };
+    
+    return new THREE.CanvasTexture(canvas);
+}
         
         // Add lights to the scene
         function addLights() {
